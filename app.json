@@ -1,0 +1,25 @@
+{
+  "pages": [
+    "pages/login/login",
+    "pages/index/index",
+    "pages/qrcode/index",
+    "pages/order/index",
+    "pages/collect/index",
+    "pages/mqtt/index"
+  ],
+  "window": {
+    "backgroundColor": "#EDEDED",
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#EDEDED",
+    "navigationBarTitleText": "生活分类",
+    "navigationBarTextStyle": "black"
+  },  
+  "permission": {
+    "scope.userLocation": {
+      "desc": "获取附近的设备"
+    }
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}
+

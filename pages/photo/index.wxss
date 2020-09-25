@@ -1,0 +1,8 @@
+.weui-media-box_appmsg .weui-media-box__hd {
+  width: 60px;
+  height: 60px;
+}
+
+.order-width{
+  min-width: 100px;
+}

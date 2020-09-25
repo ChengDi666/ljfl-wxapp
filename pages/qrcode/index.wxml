@@ -1,0 +1,5 @@
+  <view wx:if="{{imgurl != ''}}" style="text-align: center; padding-top: 80px;">
+    <!-- <image src="https://dcdn.it120.cc/cuser/26489/2020/08/11/1dfca225-b84d-4506-92ef-0f93e55168c1.png" style="width: 250px; height: 250px;" alt="" ></image> -->
+    <image src="{{imgurl}}" style="width: 250px; height: 250px;" alt="" ></image>
+    <view class="weui-article__h1" style="letter-spacing: 6px; margin: 40px 0;">请使用微信扫一扫</view>
+  </view>

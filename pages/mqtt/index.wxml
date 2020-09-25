@@ -1,0 +1,62 @@
+
+     <view class="weui-cells weui-cells_after-title">
+          <view class="weui-cell">
+              <view class="weui-cell__bd">
+                <button  class="weui-btn weui-btn_primary weui-btn_loading" style="margin: 0;" bindtap="lianjie">连接 mqtt</button>
+              </view>
+              <view class="weui-cell__ft">{{lianjie}}</view>
+          </view>
+      </view>
+
+      
+     <view class="weui-cells weui-cells_after-title">
+            <view class="weui-cell weui-cell_active">
+                <view class="weui-cell__hd">
+                    <view class="weui-label">id：</view>
+                </view>
+                <view class="weui-cell__bd">
+                    <input class="weui-input" placeholder="请输入 id" bindinput="bindinputid"/>
+                </view>
+            </view>
+            <view class="weui-cell weui-cell_active">
+                <view class="weui-cell__hd">
+                    <view class="weui-label">lng：</view>
+                </view>
+                <view class="weui-cell__bd">
+                    <input class="weui-input" placeholder="请输入lng" bindinput="bindinputlng"/>
+                </view>
+            </view>
+            <view class="weui-cell weui-cell_active">
+                <view class="weui-cell__hd">
+                    <view class="weui-label">lat： </view>
+                </view>
+                <view class="weui-cell__bd">
+                    <input class="weui-input" placeholder="请输入lat" bindinput="bindinputlat"/>
+                </view>
+            </view>
+            <view class="weui-cell weui-cell_active">
+                <view class="weui-cell__hd">
+                    <view class="weui-label">name： </view>
+                </view>
+                <view class="weui-cell__bd">
+                    <input class="weui-input" placeholder="请输入name" bindinput="bindinputname"/>
+                </view>
+            </view>
+          <view class="weui-cell">
+              <view class="weui-cell__bd">
+                <button  class="weui-btn weui-btn_primary weui-btn_loading" style="margin: 0;" bindtap="sendMessage">发消息</button>
+              </view>
+              <!-- <view class="weui-cell__ft">{{lianjie}}</view> -->
+          </view>
+      </view>
+
+
+
+      <view class="weui-cells weui-cells_after-title">
+          <view class="weui-cell">
+              <view class="weui-cell__bd">
+                <button  class="weui-btn weui-btn_primary weui-btn_loading" style="margin: 0;" bindtap="delConnect">断开连接</button>
+              </view>
+              <!-- <view class="weui-cell__ft">{{lianjie}}</view> -->
+          </view>
+      </view>

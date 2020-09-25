@@ -1,0 +1,58 @@
+@import "/template/login/index.wxss";
+
+
+
+
+
+
+
+
+/**index.wxss**/
+.weui-media-box_appmsg .weui-media-box__hd{
+  width: 100px;
+  height: 100px;
+  line-height: 100px;
+  margin-right: 50px;
+}
+
+.weui-media-box__desc,.weui-media-box__title{
+
+}
+
+.weui-media-box__title{
+  font-size: 22px;
+}
+
+.weui-media-box__desc{
+  font-size: 17px;
+}
+
+.weui-flex__item{
+  text-align: center;
+}
+
+.my_ionic{
+  width: 30px;
+  height: 30px;
+}
+.jiange{
+  margin: 50px 0;
+}
+
+.my_footer {
+  width: 100%;
+  position: fixed;
+  left: 0;
+  bottom: 3%;
+}
+
+
+.zhezhao{
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  left: 0;
+  top: 0;
+  background-color: #000;
+  opacity: .4;
+}

@@ -1,0 +1,118 @@
+<!-- <view>这是订单页面</view> -->
+
+
+<view class="weui-panel weui-panel_access" wx:if="{{orderList.length != 0}}">
+	<!-- <view class="weui-panel__hd">图文组合列表</view> -->
+	<view class="weui-panel__bd">
+		<a class="weui-media-box weui-media-box_appmsg" wx:for="{{orderList}}" bindtap="open1" data-item="{{item}}">
+			<view class="weui-media-box__hd">
+				<image class="weui-media-box__thumb" src="{{item.goodsList[0].pic}}" alt></image>
+			</view>
+			<view class="weui-media-box__bd">
+				<!-- <h4 class="weui-media-box__title">标题二</h4> -->
+				<view class="weui-media-box__title">{{item.goodsList[0].goodsName}}<span style="float: right; font-size: 12px; color: #aaa;">{{item.goodsList[0].property[0]}}</span></view>
+				<view class="weui-media-box__desc">备注： {{item.order.remark}}</view>
+				<view class="weui-media-box__desc">下单时间： {{item.order.dateAdd}}</view>
+			</view>
+		</a>
+	</view>
+	<!-- <view class="weui-panel__ft">
+				<a class="weui-cell weui-cell_active weui-cell_access weui-cell_link">
+					<view class="weui-cell__bd">查看更多</view>
+					<text class="weui-cell__ft"></text>
+				</a>
+			</view> -->
+</view>
+<view class="noOrders" wx:else>
+	<image src="../../images/orderOK.png" style="width:80%; height: 300px;"></image>
+	<view style="font-size: 20px;">订单已完成</view>
+</view>
+
+
+<!-- 弹出框 -->
+<view class="fadeIn" wx:if="{{isShow}}">
+	<view class="weui-mask" bindtap="close"></view>
+	<view class="weui-half-screen-dialog" style="height: 100%;line-height: 2;">
+		<view class="weui-half-screen-dialog__hd">
+			<view class="weui-half-screen-dialog__hd__side" bindtap="close">
+				<a class="weui-icon-btn">关闭<i class="weui-icon-close-thin"></i></a>
+			</view>
+			<view class="weui-half-screen-dialog__hd__main">
+				<strong class="weui-half-screen-dialog__title">订单详情</strong>
+			</view>
+		</view>
+		<view class="weui-half-screen-dialog__bd" style="padding-top:32px;">
+
+
+
+
+			<h3 style="color: #bbb;">订单信息</h3>
+			<view class="weui-flex">
+				<view class="order-width">
+					<view class="placeholder">名称：</view>
+				</view>
+				<view class="weui-flex__item">
+					<view class="placeholder">{{orders.goodsList[0].goodsName}}</view>
+				</view>
+			</view>
+
+			<view class="weui-flex">
+				<view class="order-width">
+					<view class="placeholder">{{propertys.name}}：</view>
+				</view>
+				<view class="weui-flex__item">
+					<view class="placeholder">{{propertys.time}}</view>
+				</view>
+			</view>
+
+			<view class="weui-flex">
+				<view class="order-width">
+					<view class="placeholder">下单时间：</view>
+				</view>
+				<view class="weui-flex__item">
+					<view class="placeholder">{{orders.order.dateAdd}}</view>
+				</view>
+			</view>
+
+			<view class="weui-flex">
+				<view class="order-width">
+					<view class="placeholder">备注：</view>
+				</view>
+				<view class="weui-flex__item">
+					<view class="placeholder">{{orders.order.remark}}</view>
+				</view>
+			</view>
+
+			<view style="color: #bbb;padding-top:32px;">用户信息</view>
+
+			<view class="weui-flex" wx:if="{{orders.userBean.nick}}">
+				<view class="order-width">
+					<view class="placeholder">用户：</view>
+				</view>
+				<view class="weui-flex__item">
+					<view class="placeholder">{{orders.userBean.nick}}</view>
+				</view>
+			</view>
+
+			<view class="weui-flex" wx:if="{{orders.userBean.mobile}}">
+				<view class="order-width">
+					<view class="placeholder">电话：</view>
+				</view>
+				<view class="weui-flex__item">
+					<view class="placeholder">{{orders.userBean.mobile}}</view>
+				</view>
+			</view>
+
+			<view class="weui-flex" wx:if="{{address}}">
+				<view class="order-width">
+					<view class="placeholder">地址：</view>
+				</view>
+				<view class="weui-flex__item">
+					<view class="placeholder">{{address}}</view>
+				</view>
+			</view>
+
+
+		</view>
+	</view>
+</view>

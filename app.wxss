@@ -1,0 +1,16 @@
+/**app.wxss**/
+@import 'weui/weui.wxss';
+
+.page{
+  font-size: 16px;
+}
+
+view, a, p, button{
+  font-size: 14px;
+}
+
+.my_card{
+  margin: 10px 15px;
+  padding: 10px;
+  box-shadow: 0 0 8px rgb(224, 224, 224);
+}

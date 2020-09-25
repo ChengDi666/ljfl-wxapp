@@ -1,0 +1,86 @@
+<view class="page" data-weui-theme="{{theme}}">
+  <view class="my_card">
+					<view class="weui-cell weui-cell_active">
+						<view class="weui-cell__bd">
+							<input class="weui-input" type="text" placeholder="请输入手机号或扫描二维码"  value="{{mobile}}"  bindinput="phoneCheng" placeholder-class="weui-input__placeholder" />
+						</view>
+						<view class="weui-cell__ft" bindtap="saomiao" style="padding: 5px;">
+                            <image style="width: 20px; height:20px;" src="../../images/sys.png"></image>    
+						</view>
+					</view>
+          <view wx:if="{{hided}}">
+                  <view class="weui-cells weui-cells_after-title" wx:for="{{addresses}}">
+                      <view class="weui-cell">
+                          <view class="weui-cell__bd"> {{item.fullname}}</view>
+                      </view>
+                  </view>
+            
+          </view>
+  </view>
+
+  <view class="my_card">
+  
+        <!-- <view class="weui-cells__title">请选择垃圾分类</view> -->
+        <view class="weui-cells weui-cells_radio weui-cells_after-title">
+            <radio-group bindchange="radioChange">
+              <view class="weui-flex">
+                <view class="weui-flex__item" wx:for="{{ljxlArr}}" wx:key="value">
+                  <label class="weui-cell weui-check__label">
+                    <view class="weui-cell__bd">{{item.name}}</view>
+                    <view class="weui-cell__ft">
+                        <radio class="weui-check" value="{{item.value}}" checked="{{item.checked}}" />
+                        <i class="weui-icon-checked"></i>
+                    </view>
+                </label>
+                </view>
+              
+              </view>
+            </radio-group>
+        </view>
+
+  </view>
+
+
+  <view class="my_card">
+  					<view class="weui-cell weui-cell_active weui-cell_select weui-cell_select-after">
+						<view class="weui-cell__hd">
+							<label class="weui-label" style="width: 6em">请选择设备</label>
+						</view>
+						<view class="weui-cell__bd ">
+                <picker class=" texts-right" bindchange="bindPickerChange" range="{{sbmc}}" range-key="deviceno">
+                    <view class="weui-select">{{sbmc[value3].deviceno}}</view>
+                </picker>
+						</view>
+					</view>
+
+
+
+            <view class="weui-cell weui-cell_vcode weui-cell_select-after">
+                <view class="weui-cell__hd">
+                    <view class="weui-label" style="width: 4em">数量</view>
+                </view>
+                <view class="weui-cell__bd">
+                    <input class="weui-input"  type="digit" placeholder="请输入..."  value='{{drop.amount}}'   bindinput="amountCheng" />
+                </view>
+                <view class="weui-cell__ft">
+                    <view class="weui-vcode-btn">{{jlbzName}}</view>
+                </view>
+            </view>
+
+
+
+  </view>
+
+
+    <view style="margin: 20px 10px;">
+            <button type="primary" style="width: 100%;" bindtap="collect" disabled="{{isok}}">提交</button>
+    </view>
+
+
+
+
+
+
+
+</view>
+
