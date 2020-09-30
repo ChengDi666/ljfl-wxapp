@@ -11,7 +11,7 @@ Page({
     onLoad() {
         this.data.userid = (wx.getStorageSync('me')).id;
         if(wx.getStorageSync('tuijian') == '') {
-          console.log(wx.getStorageSync('tuijian'));
+          // console.log(wx.getStorageSync('tuijian'));
           this.shengcheng();
           return ;
         }

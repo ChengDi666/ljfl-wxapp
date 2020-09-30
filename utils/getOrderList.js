@@ -51,7 +51,7 @@ var orderList = [];
     const datas = MSdata;
     const url = `${urls}/login/key`
     await Add.getFormData(url, datas).then(async (res) => {
-      console.log(res.data);
+      // console.log(res.data);
       adminToken = res.data.data;
     });
     // console.log(adminToken)
@@ -65,7 +65,7 @@ var orderList = [];
 
 
     const shopArr = await shopType();
-    console.log(shopArr);
+    // console.log(shopArr);
 
     
     //  获得大件垃圾订单
@@ -76,7 +76,7 @@ var orderList = [];
     };
     await ce(`${urls}/user/apiExtOrder/list`, adminToken, mydata)   
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         // console.log(res.data.data.result);
         if (res.data.code == 0) {
           res.data.data.result.map((item) => {
@@ -92,8 +92,8 @@ var orderList = [];
   async function  order(id) {
     //  订单详情
     await she(`${urls}/user/apiExtOrder/detail?id=${id}`, adminToken).then((res) => {
-      console.log(res);
-      console.log(res.data.data.extJson);
+      // console.log(res);
+      // console.log(res.data.data.extJson);
       const userID = wx.getStorageSync('me').id;
       // console.log(userID);
       // console.log(res.data.apiExtOrderLogistics);

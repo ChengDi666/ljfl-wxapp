@@ -1,97 +1,145 @@
 //app.js
 var mqtt = require('./utils/mqtt');
 var AUTH = require('./utils/auth');
+var Config = require('./config');
 App({
-  initSocket: function() {
+  data: {
+    client: {},
+  },
+  initSocket() {
     //小程序中只能用wxs://开头
-      var url = 'wxs://iot.shlj.ltd:8084/mqtt';//替换自己的请求地址
-      // console.log('wss://iot.shlj.ltd:8084/mqtt');
-   
-      var client = mqtt.connect(url, {
+      // var url = 'wxs://iot.shlj.ltd/mqtt';//替换自己的请求地址
+      var client = mqtt.connect(Config.mqttLink, {
         // clientId: "8084",
         username: 'test',
         password: 'test',
       });
-      console.log('lihdhhf')
-      
-         //建立连接
-    client.on('connect', function () {
-      console.log("建立连接")
-      //发布主题presence,消息内容为Hello mqtt
-      client.publish('tttt', '发个信息')
-
-
-      // //订阅主题 presence
-      // client.subscribe('presence', function (err) {
-      //   if (!err) {
-      //     console.log("subscribe success!")
-      //     //发布主题presence,消息内容为Hello mqtt
-      //     client.publish('presence', 'Hello mqtt')
-      //   }else{
-      //   //打印错误
-      //     console.log(err)
-      //   }
-      // })
+      this.data.client = client;
+      //建立连接
+      this.data.client.on('connect', () => {
+      // console.log("建立连接")
+      wx.showToast({
+        title: '已连接后台',
+      })
+      this.goXunhuan();
     })
 
-
-    client.on('reconnect', (error) => {
+    this.data.client.on('reconnect', (error) => {
       console.log('正在重连:', error)
     })
  
-    client.on('error', (error) => {
+    this.data.client.on('error', (error) => {
       console.log('连接失败:', error)
 
-      client.on('connect',function(){
+      this.data.client.on('connect',function(){
         console.log('连接成功');
-        //订阅
-        // client.subscribe('/test');
+        this.goXunhuan();
       })
-      
-      // client.on('message', function(topic, payload) {
-      //   console.log("rev:" + [topic, payload].join(": "))
-      // })
     })
   },
+  delConnect() {
+    if(!this.data.client) return ;
+    // console.log('要断开连接')
+    let that = this;
+    this.data.client.end(true, {reasonCode: 123456});
+    if(this.data.client.disconnecting) {
+      console.log('断开了连接')
+    }
+  },
+
+  goXunhuan() {
+    if(this.data.myVar) {
+      clearInterval(this.data.myVar);
+      console.log("有循环")
+    }
+    this.xiaoxi();
+    this.data.myVar = setInterval(() => {
+      this.xiaoxi();
+    }, 300000);
+  },
+  xiaoxi() {
+    const user = wx.getStorageSync('me');
+    const mes = {
+      id: user.id,
+      name: user.name,
+      lat: '',
+      lng: ''
+    };
+    wx.getLocation({
+      type: 'wgs84', //wgs84 返回 gps 坐标，gcj02 返回可用于 wx.openLocation 的坐标
+      success: (res) => {
+        mes.lat = res.latitude
+        mes.lng = res.longitude
+        this.sendMessage(mes);
+        // console.log(res);
+      },
+      fail: (e) => {
+        console.error(e)
+        AUTH.checkAndAuthorize('scope.userLocation')
+      }
+    })
+  },
+  sendMessage(data) {
+    for(let key in data){
+      // console.log(key + '---' + data[key])
+      if(data[key] == undefined) {
+        return ;
+      }
+    }
+    this.data.client.publish(Config.myTopic, JSON.stringify(data))
+    // console.log(data)
+  },
+  onHide() {  //  切换后台调用
+    // console.log('小程序切走了');
+
+    this.data.client.publish(Config.myTopic, JSON.stringify({
+      id: 4,
+      name: '程帝',
+      lat: 0,
+      lng: 0
+    }))
+    clearInterval(this.data.myVar);
+    setTimeout(() => {
+      this.delConnect();
+    }, 1000);
+},
+onShow() {
+  // console.log('前台显示');
+  if(wx.getStorageSync('me') && wx.getStorageSync('token')) {
+    wx.getSetting({
+      success: (res) => { //箭头函数为了处理this的指向问题	
+        if (res.authSetting["scope.userLocation"]) {
+          console.log("已授权");
+          this.initSocket();
+        }
+      }
+    })
+} 
+// else {
+//   //  调用微信登录接口
+//   console.log('没登录')
+//   AUTH.wxGetCode();
+// }
+},
 
   onLaunch: function () {
-    this.initSocket();
     if(wx.getStorageSync('me') && wx.getStorageSync('token')) {
+      // this.initSocket();
       console.log('已登录');
       wx.redirectTo({
           url: '/pages/index/index'
       })
   } else {
     //  调用微信登录接口
+    console.log('没登录')
     AUTH.wxGetCode();
   }
 
-  
-
-    // 获取用户信息
-    wx.getSetting({
-      success: res => {
-        if (res.authSetting['scope.userInfo']) {
-          // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
-          wx.getUserInfo({
-            success: res => {
-              // 可以将 res 发送给后台解码出 unionId
-              this.globalData.userInfo = res.userInfo
-
-              // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
-              // 所以此处加入 callback 以防止这种情况
-              if (this.userInfoReadyCallback) {
-                this.userInfoReadyCallback(res)
-              }
-            }
-          })
-        }
-      }
-    })
   },
 
   
   globalData: {
-    userInfo: null
+    userInfo: null,
+    ceshi: 2
   }
 })

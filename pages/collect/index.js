@@ -149,7 +149,7 @@ Page({
             addresses: []
         });
         Add.getaddress(dianhua).then((res) => {
-            console.log(res);
+            // console.log(res);
             if (!res.data.data || res.data.data.length == 0 || res.data.data.length > 1) {
                 wx.showToast({
                   title: '手机号码错误或未绑定！',

@@ -1,11 +1,9 @@
 {
   "pages": [
-    "pages/login/login",
     "pages/index/index",
     "pages/qrcode/index",
     "pages/order/index",
-    "pages/collect/index",
-    "pages/mqtt/index"
+    "pages/collect/index"
   ],
   "window": {
     "backgroundColor": "#EDEDED",

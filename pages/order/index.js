@@ -13,7 +13,7 @@ Page({
           title: '正在加载订单中'
         })
         await orders.syncShopping().then((res) => {
-            console.log(res);
+            // console.log(res);
             this.data.orderList = res;
         });
         setTimeout(() => {
@@ -26,15 +26,15 @@ Page({
         });
     },
     open1(message) {
-        console.log(message);
+        // console.log(message);
         const datas = message.currentTarget.dataset['item'];
-        console.log(datas);
+        // console.log(datas);
 
         //  时间段
         const items = datas.goodsList[0].property[0]
         const name = items.split(':')[0];
         const time = (items.split(':')).length > 3 ? items.substr(4) : items.split(':')[1]
-        console.log({ name, time })
+        // console.log({ name, time })
         
         this.setData({
             orders: datas,
@@ -47,7 +47,7 @@ Page({
             });
         } else {
             Add.getaddress(datas.userBean.mobile).then((res) => {
-                console.log(res.data);
+                // console.log(res.data);
                 this.setData({
                     address: res.data.data.parentname + ' ' + res.data.data.name
                 });

@@ -1,9 +1,10 @@
 const Add = require('./myApi');
+const app = getApp();
 
 function gologin(data) {
     // console.log(data);
     return Add.login(data).then(async (res) => {
-        console.log(res);
+        // console.log(res);
         if(res.statusCode == 401) {
             wx.showToast({
               title: res.data.message,
@@ -40,7 +41,7 @@ function gologin(data) {
 function ce(user) {
     // console.log(user)
     Add.addresses(user.address_id).then((res) => {
-        console.log(res);
+        // console.log(res);
         user.address = res.data.data[0];
         wx.setStorageSync('me', user);
     });
@@ -120,9 +121,68 @@ async function wxGetCode() {
       }
   })
 }
+async function bindGetPhoneNumber(res) {
+  if(!wx.getStorageSync('token')) {
+      // console.log('没有 token 值');
+      await wxGetCode();
+      setTimeout(() => {
+          // console.log('再次执行');
+          this.bindGetPhoneNumber(res);
+      }, 500);
+      return ;
+  }
+  // console.log(res)
+  if(res.detail.errMsg == 'getPhoneNumber:fail user deny') {
+    wx.showToast({
+      title: '取消了登录',
+      icon: 'none'
+    })
+    return ;
+  }
+  // console.log(res.detail.errMsg)
+  // console.log(res.detail.iv)
+  // console.log(res.detail.encryptedData)
+  const message =  {
+      encryptedData: res.detail.encryptedData,
+      iv: res.detail.iv,
+      session_key: wx.getStorageSync('token')
+  };
+  // console.log(message);
+  await Add.wxLogin(message).then(ress => {
+      // console.log(ress)
+      if(ress.statusCode == 200) {
+          wx.showToast({
+            title: '登录成功',
+          })
+          // setTimeout(() => {
+          //   const asse = getApp();
+          //   console.log(asse.initSocket());
+          // }, 3000);
+      let user = ress.data;
+      Add.addresses(user.address_id).then((res) => {
+          // console.log(res);
+          user.address = res.data.data[0];
+          wx.setStorageSync('me', user);
+          wx.redirectTo({
+              url: '/pages/index/index'
+          })
+      });
+      } else {
+          wx.showToast({
+              title: `登录失败，请稍后重试 - ${ress.statusCode} `,
+              icon: 'none'
+            })
+      }
+  })    
+}
+
+
+
+
 module.exports = {
     gologin: gologin,
     ce: ce,
     wxGetCode,
-    checkAndAuthorize
+    checkAndAuthorize,
+    bindGetPhoneNumber
 };

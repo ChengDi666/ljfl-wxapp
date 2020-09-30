@@ -1,4 +1,4 @@
-<!-- <import src="/template/login/index.wxml" /> -->
+<import src="/template/login/index.wxml" />
 
 <view class="page" data-weui-theme="{{theme}}">
 
@@ -9,7 +9,7 @@
 
 				<!-- <view class="jiange"></view> -->
 				<view class="my_card">
-						<view class="weui-media-box weui-media-box_appmsg">
+						<view wx:if="{{wxlogin}}" class="weui-media-box weui-media-box_appmsg">
 							<view class="weui-media-box__hd">
 								<image class="weui-media-box__thumb" src="../../images/user.png" alt></image>
 							</view>
@@ -18,17 +18,21 @@
 								<h4 class="weui-media-box__desc">{{ user.address.fullname }}</h4>
 							</view>
 						</view>
+						<view  wx:else class="weui-media-box weui-media-box_appmsg">
+							<view class="weui-media-box__hd" style="margin: 0 auto;">
+								<image class="weui-media-box__thumb" src="../../images/user.png" alt></image>
+							</view>
+						</view>
+						<!-- <view class="rightTop">
+							<image wx:if="{{state == 1}}" src="../../images/yes.png" style="width: 25px;height: 25px;margin: 5px;"></image>
+							<image wx:if="{{state == 2}}" src="../../images/cuo.png" style="width: 25px;height: 25px;margin: 5px;"></image>
+							<image wx:if="{{state == 3}}" src="../../images/jinggao.png" style="width: 25px;height: 25px;margin: 5px;"></image>
+						</view> -->
 				</view>
 
 				<!-- 功能区 -->
 				<view class="my_card">
-							<view class="weui-flex">
-								<view class="weui-flex__item">
-									<navigator url="/pages/mqtt/index">
-										<image class="my_ionic" src="../../images/erweima.png"></image>
-										<view class="placeholder">mqtt</view>
-									</navigator>
-								</view>				
+							<view class="weui-flex">	
 								<view class="weui-flex__item">
 									<navigator url="/pages/qrcode/index">
 										<image class="my_ionic" src="../../images/erweima.png"></image>
@@ -75,4 +79,4 @@
 <view class="zhezhao" wx:if="{{iszhezhao}}"></view>
 
 
-<!-- <template is="apifmLogin" data="{{wxlogin: wxlogin}}" /> -->
+<template is="apifmLogin" data="{{wxlogin: wxlogin}}" />
