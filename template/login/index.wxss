@@ -11,9 +11,10 @@
 .apifmLogin .s-b {
   width: 70%;
   margin: 0 auto;
-  height: 600rpx;
+  height: 560rpx;
+  /* height: 600rpx; */
   background-color: #fff;
-  margin-top: 40%;
+  margin-top: 45%;
   border-radius: 10rpx;
 }
 

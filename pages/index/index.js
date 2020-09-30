@@ -23,18 +23,6 @@ Page({
         // console.log(e);
         AUTH.bindGetPhoneNumber(e);
       },
-    cancelLogin() {
-        // console.log('暂不登录');
-        wx.showToast({
-          title: '不进行登录，将无法正常使用！',
-          icon: 'none',
-          duration: 3000,
-          mask: true
-        })
-        this.setData({
-          wxlogin: false
-        })
-      },
     logout() {
         wx.removeStorageSync('me');
         wx.removeStorageSync('token');
