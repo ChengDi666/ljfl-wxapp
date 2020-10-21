@@ -261,6 +261,10 @@ function getCode(code) {
       success (res) {
         // console.log(res)
         return resolve(res)
+      },
+      fail (err) {
+        console.error(err);
+        return resolve(err);
       }
     })
   });

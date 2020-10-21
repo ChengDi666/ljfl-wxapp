@@ -49,6 +49,7 @@ App({
 
   goXunhuan() {
     if(this.data.myVar) {
+      console.log(this.data.myVar)
       clearInterval(this.data.myVar);
       console.log("有循环")
     }
@@ -62,8 +63,10 @@ App({
     const mes = {
       id: user.id,
       name: user.name,
+      phonenumber: user.phonenumber,
       lat: '',
-      lng: ''
+      lng: '',
+      // timess: new Date()
     };
     wx.getLocation({
       type: 'wgs84', //wgs84 返回 gps 坐标，gcj02 返回可用于 wx.openLocation 的坐标
@@ -122,18 +125,88 @@ onShow() {
 // }
 },
 
-  onLaunch: function () {
+networkManage: function () {
+  //监听网络状态
+  wx.onNetworkStatusChange((res) => {
+    console.log(res)
+    if (!res.isConnected) {
+      // that.msg('网络似乎不太顺畅');
+      wx.showToast({
+        title: '网络似乎不太顺畅',
+        icon: 'none',
+        duration: 3000
+      })
+    }
+  })
+}, 
+
+
+updateManage: function () {
+  var that = this;
+  var updateManager = wx.getUpdateManager()
+  updateManager.onCheckForUpdate(function (res) {
+    // 请求完新版本信息的回调
+    // console.log(res.hasUpdate)
+    if (!res.hasUpdate) {
+      // console.log('已是最新版本')
+    } else {
+      wx.showToast({
+        title: '当前不是最新版本',
+        icon: 'none'
+      })
+      wx.removeStorageSync('me')
+      wx.removeStorageSync('token')
+    }
+  })
+  // 监听新版本下载成功
+  updateManager.onUpdateReady(function () {
+    wx.showModal({
+      title: '更新提示',
+      content: '新版本已经准备好，是否重启应用？',
+      success: function (res) {
+        if (res.confirm) {
+          wx.removeStorageSync('me')
+          wx.removeStorageSync('token')
+          setTimeout(() => {
+            // 新的版本已经下载好，调用 applyUpdate 应用新版本并重启
+            updateManager.applyUpdate()
+          }, 1000);
+        } else {
+          that.updateManage();
+        }
+      }
+    })
+  })
+  // 监听新版本下载失败
+  updateManager.onUpdateFailed(function () {
+    app.showModal({
+      content: '新版本更新失败，是否重试？',
+      confirmText: '重试',
+      success: function (res) {
+        if (res.confirm) {
+          // 新的版本已经下载好，调用 applyUpdate 应用新版本并重启
+          updateManager.applyUpdate()
+        }
+      }
+    });
+  })
+},
+  onLaunch: function () { // 当小程序加载完毕后就执行
+    this.networkManage(); //调用监听网络状态的方法
+    this.updateManage(); //调用检测小程序版本更新的方法
     if(wx.getStorageSync('me') && wx.getStorageSync('token')) {
       // this.initSocket();
       console.log('已登录');
-      wx.redirectTo({
-          url: '/pages/index/index'
-      })
+      // wx.redirectTo({
+      //     url: '/pages/index/index'
+      // })
   } else {
     //  调用微信登录接口
     console.log('没登录')
-    AUTH.wxGetCode();
+    // AUTH.wxGetCode();
   }
+
+
 
   },
 

@@ -48,8 +48,10 @@ Page({
         } else {
             Add.getaddress(datas.userBean.mobile).then((res) => {
                 // console.log(res.data);
+                const addresses = res.data.data.address
+                // console.log(addresses);
                 this.setData({
-                    address: res.data.data.parentname + ' ' + res.data.data.name
+                    address: addresses.fullname
                 });
             })
         }

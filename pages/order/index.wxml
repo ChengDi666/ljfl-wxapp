@@ -11,8 +11,8 @@
 			<view class="weui-media-box__bd">
 				<!-- <h4 class="weui-media-box__title">标题二</h4> -->
 				<view class="weui-media-box__title">{{item.goodsList[0].goodsName}}<span style="float: right; font-size: 12px; color: #aaa;">{{item.goodsList[0].property[0]}}</span></view>
-				<view class="weui-media-box__desc">备注： {{item.order.remark}}</view>
-				<view class="weui-media-box__desc">下单时间： {{item.order.dateAdd}}</view>
+				<view class="weui-media-box__desc" style="word-break: break-all;">备注： {{item.order.remark}}</view>
+				<view class="weui-media-box__desc" style="word-break: break-all;">下单时间： {{item.order.dateAdd}}</view>
 			</view>
 		</a>
 	</view>
@@ -79,7 +79,7 @@
 					<view class="placeholder">备注：</view>
 				</view>
 				<view class="weui-flex__item">
-					<view class="placeholder">{{orders.order.remark}}</view>
+					<view class="placeholder" style="word-break: break-all;">{{orders.order.remark}}</view>
 				</view>
 			</view>
 

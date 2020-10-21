@@ -9,7 +9,7 @@
 
 				<!-- <view class="jiange"></view> -->
 				<view class="my_card">
-						<view wx:if="{{wxlogin}}" class="weui-media-box weui-media-box_appmsg">
+						<view wx:if="{{user.name}}" class="weui-media-box weui-media-box_appmsg">
 							<view class="weui-media-box__hd">
 								<image class="weui-media-box__thumb" src="../../images/user.png" alt></image>
 							</view>
@@ -33,29 +33,29 @@
 				<!-- 功能区 -->
 				<view class="my_card">
 							<view class="weui-flex">	
-								<view class="weui-flex__item">
-									<navigator url="/pages/qrcode/index">
+								<view class="weui-flex__item" bindtap="linkTo" data-url="/pages/qrcode/index">
+									<!-- <navigator url="/pages/qrcode/index"> -->
 										<image class="my_ionic" src="../../images/erweima.png"></image>
 										<view class="placeholder">推荐码</view>
-									</navigator>
+									<!-- </navigator> -->
 								</view>
-								<view class="weui-flex__item">
-									<navigator url="/pages/photo/index">
+								<view class="weui-flex__item" bindtap="linkTo" data-url="/pages/photo/index">
+									<!-- <navigator url="/pages/photo/index"> -->
 										<image class="my_ionic" src="../../images/photo.png"></image>
 										<view class="placeholder">拍照</view>
-									</navigator>
+									<!-- </navigator> -->
 								</view>
-								<view class="weui-flex__item">
-									<navigator url="/pages/order/index">
+								<view class="weui-flex__item" bindtap="linkTo" data-url="/pages/order/index">
+									<!-- <navigator url="/pages/order/index"> -->
 										<image class="my_ionic" src="../../images/order.png"></image>
 										<view class="placeholder">订单中心</view>
-									</navigator>
+									<!-- </navigator> -->
 								</view>
-								<view class="weui-flex__item">
-									<navigator url="/pages/collect/index">
+								<view class="weui-flex__item" bindtap="linkTo" data-url="/pages/collect/index">
+									<!-- <navigator url="/pages/collect/index"> -->
 										<image class="my_ionic" src="../../images/dudao.png"></image>
 										<view class="placeholder">督导</view>
-									</navigator>
+									<!-- </navigator> -->
 								</view>
 							</view>
 				
@@ -69,8 +69,11 @@
 
 	</view>
 	<view class="my_footer">
-		<view style="margin: 20px 10px;" bindtap="logout">
+		<view style="margin: 20px 10px;" bindtap="logout"  wx:if="{{user.name}}" >
 				<a class="weui-btn weui-btn_primary" style="width: 100%;">退出登录</a>
+		</view>
+		<view wx:else style="margin: 20px 10px;"  bindtap="goLogin">
+				<a class="weui-btn weui-btn_primary" style="width: 100%;">登录</a>
 		</view>
 	</view>
 
